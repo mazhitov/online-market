@@ -10,6 +10,7 @@ const sortByDate = (products) => {
 const Nova = () => {
     const products = useSelector((store) => store.products.products);
     const novaProducts = sortByDate(products);
+
     return (
         <div className="p-3 card">
             <h3>Новинки</h3>
