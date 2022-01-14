@@ -1,11 +1,19 @@
 import React from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useParams} from "react-router-dom";
+import {deleteProduct} from "../../redux/products-reducer";
+import {useNavigate} from "react-router";
 
 const Product = () => {
     const products = useSelector((store) => store.products.products);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const currentProductId = useParams().id;
     const product = products.find(product => product.id === currentProductId);
+    const removeProduct = () => {
+        dispatch(deleteProduct(currentProductId));
+        navigate('/');
+    };
     return (
         <div className="card mb-2 p-4">
             <div className="p-5 w-75">
@@ -23,7 +31,7 @@ const Product = () => {
             <div className="p-3 text-right">
                 <NavLink to={`/product/${product.id}/edit`}
                          className="btn btn-primary mr-3">Изменить</NavLink>
-                <button className="btn btn-danger">Удалить</button>
+                <button className="btn btn-danger" onClick={removeProduct}>Удалить</button>
             </div>
         </div>
     );
